@@ -11,7 +11,10 @@ find_package(GLUT REQUIRED)
 include_directories(${GLUT_INCLUDE_DIRS})
 
 add_executable(Exercise1 main.cpp)
+add_executable(TaskB taskb.cpp)
 
 target_link_libraries(Exercise1 ${OPENGL_LIBRARIES})
-target_link_libraries(Exercise1 ${SFML_LIBRARIES})
 target_link_libraries(Exercise1 ${GLUT_LIBRARIES})
+
+target_link_libraries(TaskB ${OPENGL_LIBRARIES})
+target_link_libraries(TaskB ${GLUT_LIBRARIES})
