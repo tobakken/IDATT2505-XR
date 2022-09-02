@@ -17,6 +17,7 @@ void display(void) {
   glColor3f(1.0, 1.0, 1.0);
   glLoadIdentity();
   glTranslatef(0.0f, 0.0f, -5.0f);
+  /*gluLookAt(2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);*/
   glPointSize(5.0);
   glBegin(GL_LINE_LOOP);
 
@@ -59,7 +60,7 @@ void display(void) {
 }
 
 void spinDisplay(void) {
-  spin = spin + 0.01;
+  spin = spin + 0.1;
   if (spin > 360.0)
     spin = spin - 360.0;
   glutPostRedisplay();
