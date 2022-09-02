@@ -5,6 +5,10 @@
 void init(void) {
   glClearColor(0.0, 0.0, 0.0, 0.0);
   glShadeModel(GL_FLAT);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective(0.0, 0.0, 0.0, 50.0);
+  glMatrixMode(GL_MODELVIEW);
 }
 
 void points() {
