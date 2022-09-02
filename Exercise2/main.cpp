@@ -48,7 +48,8 @@ void display(void) {
   glutWireCube(2.0);
 
   glPushMatrix();
-  glRotatef(spin, 1.0, 0.0, 1.0);
+  glRotatef(spin, 0.0, 1.0, 0.0);
+  glTranslatef(2.0, 0.0, 0.0);
   glutWireCube(1.0);
   glPopMatrix();
 
@@ -58,7 +59,7 @@ void display(void) {
 }
 
 void spinDisplay(void) {
-  spin = spin + 0.1;
+  spin = spin + 0.01;
   if (spin > 360.0)
     spin = spin - 360.0;
   glutPostRedisplay();
