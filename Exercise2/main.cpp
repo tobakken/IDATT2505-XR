@@ -17,7 +17,7 @@ void display(void) {
   glColor3f(1.0, 1.0, 1.0);
   glLoadIdentity();
   glTranslatef(0.0f, 0.0f, -5.0f);
-  /*gluLookAt(2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);*/
+  gluLookAt(2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
   glPointSize(5.0);
   glBegin(GL_LINE_LOOP);
 
