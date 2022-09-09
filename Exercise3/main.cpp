@@ -19,6 +19,13 @@ void init() {
   glClearColor(0.0, 0.0, 0.0, 1.0);
   glShadeModel(GL_FLOAT);
   glEnable(GL_DEPTH_TEST);
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      for (int k = 0; k < 3; ++k) {
+        cube_rotations[i][j][k].push_back(cube_rotate{90.0, 0.0, 0.0});
+      }
+    }
+  }
 }
 
 void draw_cube(int x, int y, int z) {
@@ -30,7 +37,7 @@ void draw_cube(int x, int y, int z) {
       (y - 1) * cube_size * 2 + (y - 1) * gap,
       (z - 1) * cube_size * 2 + (z - 1) * gap);
 
-  for (int i = 0; i < rot.size(); ++i) {
+  for (int i = rot.size(); i > 0; --i) {
     glRotatef(rot[i].angle, rot[i].x, rot[i].y, rot[i].z);
   }
 
@@ -99,11 +106,13 @@ void draw_cube(int x, int y, int z) {
 
 void spinDisplay() {
   if (boolSpin)
-    spin = spin + 0.02;
+    spin = spin + 0.05;
   glutPostRedisplay();
 }
 
 void draw_rubix() {
+  vector<cube_rotate> face[3][3];
+  int index;
   switch (selected) {
   case 'a':
     for (int i = 0; i < 3; ++i) {
@@ -126,15 +135,23 @@ void draw_rubix() {
       boolSpin = false;
       for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-          cube_rotate rotation;
-          rotation.angle = 90.0;
-          rotation.y = 1.0;
-          cube_rotations[i][0][j].push_back(rotation);
+          GLfloat angle = spin;
+          index = 2 - j % 3;
+          cube_rotate rotation = {angle, 0.0, 1.0, 0.0};
+          face[index][i] = cube_rotations[j][0][i];
+          face[index][i].push_back(rotation);
         }
       }
+      for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+          cube_rotations[j][0][i] = face[i][j];
+        }
+      }
+
       spin = 0;
     }
     break;
+
   case 's':
     for (int i = 0; i < 3; ++i) {
       for (int j = 0; j < 3; ++j) {
@@ -155,10 +172,15 @@ void draw_rubix() {
       boolSpin = false;
       for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-          cube_rotate rotation;
-          rotation.angle = spin;
-          rotation.x = 1.0;
-          cube_rotations[0][i][j].push_back(rotation);
+          index = 2 - j % 3;
+          cube_rotate rotation = {90.0, 1.0, 0.0, 0.0};
+          face[index][i] = cube_rotations[0][i][j];
+          face[index][i].push_back(rotation);
+        }
+      }
+      for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+          cube_rotations[0][i][j] = face[i][j];
         }
       }
       spin = 0;
@@ -184,15 +206,20 @@ void draw_rubix() {
       boolSpin = false;
       for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-          cube_rotate rotation;
-          rotation.angle = spin;
-          rotation.x = 1.0;
-          cube_rotations[i][j][0].push_back(rotation);
+          GLfloat angle = spin;
+          index = 2 - j % 3;
+          cube_rotate rotation = {angle, 0.0, 0.0, 1.0};
+          face[index][i] = cube_rotations[j][i][0];
+          face[index][i].push_back(rotation);
+        }
+      }
+      for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+          cube_rotations[j][i][0] = face[i][j];
         }
       }
       spin = 0;
     }
-
     break;
   }
 }
